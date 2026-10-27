@@ -1,10 +1,10 @@
-/** Public read-only boundary consumed by the presentation layer. */
+/** Публичная readonly-граница, которую потребляет слой представления. */
 export interface SimulationSnapshot {
   readonly tick: number;
   readonly elapsedSeconds: number;
 }
 
-/** Pure TypeScript: no Phaser, DOM, timers or rendering dependencies. */
+/** Чистый TypeScript: без Phaser, DOM, таймеров и зависимостей от рендера. */
 export class Simulation {
   private tick = 0;
   private elapsedSeconds = 0;

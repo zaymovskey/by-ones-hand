@@ -1,14 +1,14 @@
-import Phaser from 'phaser';
-import { SimulationRunner } from './app/SimulationRunner';
-import { StarterScene } from './render/StarterScene';
-import './style.css';
+import Phaser from "phaser";
+import { SimulationRunner } from "./app/SimulationRunner";
+import { StarterScene } from "./render/StarterScene";
+import "./style.css";
 
-// Composition root: wires the independent simulation to the Phaser adapter.
+// Корень композиции: связывает независимую симуляцию с адаптером Phaser.
 const runner = new SimulationRunner();
 const game = new Phaser.Game({
   type: Phaser.AUTO,
-  parent: 'game',
-  backgroundColor: '#151719',
+  parent: "game",
+  backgroundColor: "#151719",
   scale: {
     mode: Phaser.Scale.RESIZE,
     width: window.innerWidth,

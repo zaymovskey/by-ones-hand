@@ -3,14 +3,14 @@ import type { SimulationSnapshot } from '../simulation/Simulation';
 
 export type AdvanceSimulation = (frameSeconds: number) => SimulationSnapshot;
 
-/** Presentation only. The scene neither owns nor mutates simulation state. */
+/** Только представление. Сцена не владеет и не меняет состояние симуляции. */
 export class StarterScene extends Phaser.Scene {
   constructor(private readonly advanceSimulation: AdvanceSimulation) {
     super({ key: 'StarterScene' });
   }
 
   create(): void {
-    // Empty scene by design. Add presentation here when a feature is requested.
+    // Пустая сцена намеренно. Добавляй представление сюда, когда попросят фичу.
     this.cameras.main.setBackgroundColor('#151719');
   }
 
@@ -20,6 +20,6 @@ export class StarterScene extends Phaser.Scene {
   }
 
   private renderSnapshot(_snapshot: SimulationSnapshot): void {
-    // Future visuals consume snapshots; there are no game objects yet.
+    // Будущая графика читает снимки; игровых объектов пока нет.
   }
 }
