@@ -12,7 +12,7 @@ npm install
 npm run dev
 ```
 
-Открой адрес, который напечатает Vite (обычно http://127.0.0.1:5173).
+Команда откроет окно Electron с игрой. Внешний браузер не нужен.
 После появления package-lock.json для повторяемой установки используй `npm ci`.
 
 ```powershell
@@ -21,7 +21,7 @@ npm run build
 npm run preview
 ```
 
-`build` проверяет TypeScript и создаёт папку dist. `preview` показывает собранную версию через локальный HTTP-сервер. Не открывай index.html напрямую с диска.
+`build` проверяет TypeScript и создаёт папку out. `preview` запускает собранную версию в Electron без сервера. Не открывай index.html напрямую с диска.
 
 ## Структура
 
@@ -69,3 +69,7 @@ By One's Hand — мрачная минималистичная средневе
 - [LEARNING_GUIDE.md](LEARNING_GUIDE.md): как обучать опытного React/TypeScript-разработчика основам геймдева.
 - [ROADMAP.md](ROADMAP.md): путь от каркаса до дуэли, критерии готовности и дальний горизонт.
 - [AGENTS.md](AGENTS.md): обязательные инструкции для AI-кодинг-агента.
+
+## Desktop / Electron
+
+Запуск, структура main/renderer/preload, сборка приложения и проверка JSON-сохранений: [ELECTRON.md](ELECTRON.md).

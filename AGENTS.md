@@ -31,3 +31,6 @@
 ## Проверка
 
 Запускай npm run build после изменений. Проверки поведения добавляй вместе с появлением реальных правил. Не заявляй о визуальной проверке, если она не проводилась.
+
+## Electron
+Читайте ELECTRON.md при работе с desktop-оболочкой. electron/main.ts — окно и привилегированные операции, electron/preload.ts — ограниченный мост, shared/saves.ts — контракт. src остаётся renderer, simulation не импортирует Electron. Сохранения только через IPC в userData/saves. Сохранять contextIsolation, sandbox и nodeIntegration:false; не раскрывать raw ipcRenderer или произвольные пути. npm run dev открывает Electron, npm run build собирает три части, npm run test:electron проверяет настоящий production Electron.
