@@ -14,7 +14,10 @@ const game = new Phaser.Game({
     width: window.innerWidth,
     height: window.innerHeight,
   },
-  scene: [new StarterScene((seconds) => runner.advance(seconds))],
+
+  scene: [
+    new StarterScene((seconds, move) => runner.updateWorld(seconds, move)),
+  ],
 });
 
 if (import.meta.hot) {
