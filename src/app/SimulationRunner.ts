@@ -1,5 +1,6 @@
 import {
   Simulation,
+  type AimCommand,
   type MoveCommand,
   type SimulationSnapshot,
 } from '../simulation/Simulation';
@@ -23,21 +24,21 @@ export class SimulationRunner {
   updateWorld(
     frameSeconds: number,
     move: MoveCommand = { x: 0, y: 0 },
+    aim: AimCommand = { x: 0, y: 0 },
   ): SimulationSnapshot {
-    // Запомнить намерение игрока до шагов этого кадра.
     this.simulation.setMoveCommand(move);
+    this.simulation.setAimCommand(aim);
 
-    // Добавить длительность кадра в копилку (не меньше 0, не больше потолка).
     this.accumulator += Math.min(Math.max(frameSeconds, 0), MAX_FRAME_SECONDS);
 
-    // Пока в копилке хватает на один полный шаг — крутим мир ровно на STEP_SECONDS.
-    // Длинный кадр → несколько step подряд. Короткий → step может подождать до следующего кадра.
     while (this.accumulator >= STEP_SECONDS) {
       this.simulation.step(STEP_SECONDS);
       this.accumulator -= STEP_SECONDS;
     }
 
-    // Отдать сцене снимок после догона времени.
+    // Прицел каждый кадр, даже если step не вызывался (короткий кадр / остаток копилки).
+    this.simulation.applyAim();
+
     return this.simulation.getSnapshot();
   }
 }

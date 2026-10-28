@@ -16,7 +16,9 @@ const game = new Phaser.Game({
   },
 
   scene: [
-    new StarterScene((seconds, move) => runner.updateWorld(seconds, move)),
+    new StarterScene((seconds, move, aim) =>
+      runner.updateWorld(seconds, move, aim),
+    ),
   ],
 });
 
