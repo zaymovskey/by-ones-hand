@@ -9,7 +9,8 @@ export interface SimulationSnapshot {
   readonly hero: {
     readonly x: number;
     readonly y: number;
-    readonly facingAngle: number;
+    readonly bodyFacing: number;
+    readonly swordAngle: number;
   };
 }
 
@@ -29,9 +30,9 @@ export class Simulation {
     this.cursor = command;
   }
 
-  /** Повернуть героя к текущему положению курсора. */
+  /** Обновить угол меча по курсору (с ограничением сектора). */
   applyCursor(): void {
-    this.hero.faceToward(this.cursor);
+    this.hero.aimSwordToward(this.cursor);
   }
 
   step(deltaSeconds: number): void {
