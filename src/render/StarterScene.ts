@@ -1,16 +1,16 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 import type {
-  AimCommand,
+  CursorCommand,
   MoveCommand,
   SimulationSnapshot,
-} from '../simulation/Simulation';
-import { HeroView } from './HeroView';
+} from "../simulation/Simulation";
+import { HeroView } from "./HeroView";
 
-/** Обновить мир за кадр: время + движение + прицел → снимок. */
+/** Обновить мир за кадр: время + движение + курсор → снимок. */
 export type UpdateWorld = (
   frameSeconds: number,
   move: MoveCommand,
-  aim: AimCommand,
+  cursor: CursorCommand,
 ) => SimulationSnapshot;
 
 /** Только представление. Сцена не владеет и не меняет состояние симуляции. */
@@ -25,14 +25,14 @@ export class StarterScene extends Phaser.Scene {
   };
 
   constructor(updateWorld: UpdateWorld) {
-    super({ key: 'StarterScene' });
+    super({ key: "StarterScene" });
     this.updateWorld = updateWorld;
   }
 
   create(): void {
-    this.cameras.main.setBackgroundColor('#151719');
+    this.cameras.main.setBackgroundColor("#151719");
 
-    this.wasd = this.input.keyboard!.addKeys('W,A,S,D') as typeof this.wasd;
+    this.wasd = this.input.keyboard!.addKeys("W,A,S,D") as typeof this.wasd;
 
     this.heroView = new HeroView(this);
     this.cameras.main.centerOn(0, 0);
@@ -47,15 +47,16 @@ export class StarterScene extends Phaser.Scene {
     if (this.wasd.W.isDown) y -= 1;
     const move: MoveCommand = { x, y };
 
+    // Перевод координат курсора из экранных в мировые.
     const pointer = this.input.activePointer;
     pointer.updateWorldPoint(this.cameras.main);
-    const aim: AimCommand = {
+    const cursor: CursorCommand = {
       x: pointer.worldX,
       y: pointer.worldY,
     };
 
     const deltaSeconds = deltaMilliseconds / 1000;
-    const snapshot = this.updateWorld(deltaSeconds, move, aim);
+    const snapshot = this.updateWorld(deltaSeconds, move, cursor);
     this.renderSnapshot(snapshot);
   }
 

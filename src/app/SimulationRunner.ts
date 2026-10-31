@@ -1,6 +1,6 @@
 import {
   Simulation,
-  type AimCommand,
+  type CursorCommand,
   type MoveCommand,
   type SimulationSnapshot,
 } from '../simulation/Simulation';
@@ -24,10 +24,10 @@ export class SimulationRunner {
   updateWorld(
     frameSeconds: number,
     move: MoveCommand = { x: 0, y: 0 },
-    aim: AimCommand = { x: 0, y: 0 },
+    cursor: CursorCommand = { x: 0, y: 0 },
   ): SimulationSnapshot {
     this.simulation.setMoveCommand(move);
-    this.simulation.setAimCommand(aim);
+    this.simulation.setCursorCommand(cursor);
 
     this.accumulator += Math.min(Math.max(frameSeconds, 0), MAX_FRAME_SECONDS);
 
@@ -36,8 +36,8 @@ export class SimulationRunner {
       this.accumulator -= STEP_SECONDS;
     }
 
-    // Прицел каждый кадр, даже если step не вызывался (короткий кадр / остаток копилки).
-    this.simulation.applyAim();
+    // Курсор каждый кадр, даже если step не вызывался.
+    this.simulation.applyCursor();
 
     return this.simulation.getSnapshot();
   }

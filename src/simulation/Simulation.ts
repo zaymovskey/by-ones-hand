@@ -1,6 +1,6 @@
-import { Hero, type AimCommand, type MoveCommand } from './Hero';
+import { Hero, type CursorCommand, type MoveCommand } from './Hero';
 
-export type { AimCommand, MoveCommand } from './Hero';
+export type { CursorCommand, MoveCommand } from './Hero';
 
 /** Публичная readonly-граница, которую потребляет слой представления. */
 export interface SimulationSnapshot {
@@ -19,19 +19,19 @@ export class Simulation {
   private elapsedSeconds = 0;
   private readonly hero = new Hero();
   private move: MoveCommand = { x: 0, y: 0 };
-  private aim: AimCommand = { x: 0, y: 0 };
+  private cursor: CursorCommand = { x: 0, y: 0 };
 
   setMoveCommand(command: MoveCommand): void {
     this.move = command;
   }
 
-  setAimCommand(command: AimCommand): void {
-    this.aim = command;
+  setCursorCommand(command: CursorCommand): void {
+    this.cursor = command;
   }
 
-  /** Мгновенно повернуть героя к текущей точке прицела (не зависит от step). */
-  applyAim(): void {
-    this.hero.faceToward(this.aim);
+  /** Повернуть героя к текущему положению курсора. */
+  applyCursor(): void {
+    this.hero.faceToward(this.cursor);
   }
 
   step(deltaSeconds: number): void {

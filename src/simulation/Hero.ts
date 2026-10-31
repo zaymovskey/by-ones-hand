@@ -4,8 +4,8 @@ export interface MoveCommand {
   readonly y: number;
 }
 
-/** Точка прицеливания в мире (курсор). */
-export interface AimCommand {
+/** Положение курсора в мире. */
+export interface CursorCommand {
   readonly x: number;
   readonly y: number;
 }
@@ -30,10 +30,10 @@ export class Hero {
     this.y += ny * this.speed * deltaSeconds;
   }
 
-  /** Повернуть лицом/мечом к точке в мире. */
-  faceToward(aim: AimCommand): void {
-    const dx = aim.x - this.x;
-    const dy = aim.y - this.y;
+  /** Повернуть лицом/мечом к положению курсора в мире. */
+  faceToward(cursor: CursorCommand): void {
+    const dx = cursor.x - this.x;
+    const dy = cursor.y - this.y;
     if (dx === 0 && dy === 0) {
       return;
     }

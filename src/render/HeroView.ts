@@ -1,4 +1,4 @@
-import type Phaser from 'phaser';
+import type Phaser from "phaser";
 
 /** Картинка главного героя. Читает данные снимка, правила не считает. */
 export class HeroView {
@@ -19,7 +19,20 @@ export class HeroView {
       0x9a9ea3,
     );
 
-    this.root = scene.add.container(0, 0, [body, sword]);
+    const swordDamageLength = swordLength + 20;
+    const swordDamageLengthCursor = scene.add.rectangle(
+      bodyRadius + 10 + swordDamageLength / 2,
+      0,
+      swordDamageLength,
+      10,
+      0xff0000,
+    );
+
+    this.root = scene.add.container(0, 0, [
+      body,
+      swordDamageLengthCursor,
+      sword,
+    ]);
   }
 
   sync(hero: {
